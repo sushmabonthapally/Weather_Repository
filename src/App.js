@@ -26,7 +26,6 @@ class Weather extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-   
     const data = {
           startDate : this.state.startDate.getDate()
         }
@@ -39,6 +38,7 @@ class Weather extends Component {
               })
         }
 
+        
   render() {
     return (
       <div className = "App">
@@ -53,7 +53,7 @@ class Weather extends Component {
             </form>
           </div>
           <div>
-        <ul>
+        <div>
         {this.props.res.map((strResults)=>
                     {
                       let mainRes = "The weather details are not applicable for today's date. Select other date from Calendar";
@@ -63,21 +63,21 @@ class Weather extends Component {
                       if( Number(keys[i]) !== new Date().getDate() &&  Number(keys[i]) === this.state.startDate.getDate())
                       {
                        let val = strResults[this.state.startDate.getDate()];
-                        mainRes =
-                        <div>
-                          <b>weatherDetails:</b>
-                         <li>temperature : {val.temperature}</li>
-                         <li>pressure : {val.pressure}</li>
-                         <li>humidity : {val.humidity}</li>
-                         <li>temp_min : {val.temp_min}</li>
-                         <li>temp_max : {val.temp_max}</li>
-                        </div>
+                        mainRes = 
+                       <ul>
+                        <b>weatherDetails:</b> 
+                         <li key = {val.temperature}>temperature : {val.temperature}</li>
+                         <li key = {val.pressure}>pressure : {val.pressure}</li>
+                         <li key = {val.humidity}>humidity : {val.humidity}</li>
+                         <li key = {val.temp_min}>temp_min : {val.temp_min}</li>
+                         <li key = {val.temp_max}>temp_max : {val.temp_max}</li>
+                       </ul>
                       }    
                      }
                      return mainRes;
                   })
                 }
-          </ul>
+          </div>
         </div>
       </div>
     );
