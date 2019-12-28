@@ -46,6 +46,7 @@ class Weather extends Component {
             <form onSubmit= {this.handleSubmit}>
             <label>Select Date: </label>
             <DatePicker
+              className = "date"
               selected={ this.state.startDate}
               onChange={ this.handleChange }
             />
@@ -55,7 +56,6 @@ class Weather extends Component {
         <ul>
         {this.props.res.map((strResults)=>
                     {
-                      debugger;
                       let mainRes = "The weather details are not applicable for today's date. Select other date from Calendar";
                       let keys = Object.keys(strResults);
                       for(let i=0;i<=keys.length;i++)

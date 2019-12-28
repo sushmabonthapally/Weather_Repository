@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  margin:15%
+  margin:10%
 }
 li 
 {
@@ -8,5 +8,8 @@ li
 }
 b{
   margin-right: 100px;
+}
+.date {
+  border :1px solid black
 }
 
