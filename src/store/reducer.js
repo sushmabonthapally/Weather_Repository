@@ -1,5 +1,8 @@
+import * as actionTypes from './action'
+
 const initialState = {
     startDate : new Date(),
+    mainRes : "The weather details are not applicable for today's date. Select other date from Calendar",
     weatherDetails : [
         {
         1:  {
@@ -228,15 +231,16 @@ const reducer = (state = initialState,action)=>
 { 
     switch(action.type)
     {
-    case "STOREDRES":
+    case actionTypes.STOREDRES:
     return {
         ...state,
-        weatherDetails : state.weatherDetails.concat({id : new Date()})
+        weatherDetails : state.weatherDetails.concat(state.startDate,state.mainRes)
     }
     default :
      return state;
+     
 }
 
-}
+};
 
 export default reducer

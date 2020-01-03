@@ -3,7 +3,8 @@ import './App.css';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from 'axios';
-import {connect} from 'react-redux'
+import {connect} from 'react-redux';
+import * as actionTypes from './store/action'
 
 class Weather extends Component {
   constructor(props)
@@ -38,7 +39,7 @@ class Weather extends Component {
               })
         }
 
-        
+
   render() {
     return (
       <div className = "App">
@@ -48,23 +49,22 @@ class Weather extends Component {
             <DatePicker
               className = "date"
               selected={ this.state.startDate}
-              onChange={ this.handleChange }
+              onChange={ this.handleChange } 
             />
             </form>
           </div>
-          <div>
         <div>
         {this.props.res.map((strResults)=>
                     {
-                      let mainRes = "The weather details are not applicable for today's date. Select other date from Calendar";
+                      let OutData = this.props.finalRes
                       let keys = Object.keys(strResults);
                       for(let i=0;i<=keys.length;i++)
                       {
                       if( Number(keys[i]) !== new Date().getDate() &&  Number(keys[i]) === this.state.startDate.getDate())
                       {
                        let val = strResults[this.state.startDate.getDate()];
-                        mainRes = 
-                       <ul>
+                       OutData =
+                       <ul key = {Math.round(1)}> 
                         <b>weatherDetails:</b> 
                          <li key = {val.temperature}>temperature : {val.temperature}</li>
                          <li key = {val.pressure}>pressure : {val.pressure}</li>
@@ -72,13 +72,13 @@ class Weather extends Component {
                          <li key = {val.temp_min}>temp_min : {val.temp_min}</li>
                          <li key = {val.temp_max}>temp_max : {val.temp_max}</li>
                        </ul>
+                       
                       }    
                      }
-                     return mainRes;
+                     return OutData;
                   })
                 }
           </div>
-        </div>
       </div>
     );
   }
@@ -87,6 +87,7 @@ const mapStateToProps = (state)=>
 {
   return{
     DateVal :state.startDate,
+    finalRes : state.mainRes,
     res :state.weatherDetails
   };
 };
@@ -94,8 +95,7 @@ const mapStateToProps = (state)=>
 const mapDispatchToProps = (dispatch)=>
 {
 return {
-  onStartDate : ()=>dispatch({type:"DATERES"}),
-  onWeatherDetails : ()=>dispatch({type : "STOREDRES"})
+  OnWeatherDetails : ()=>dispatch({type : actionTypes.STOREDRES})
 };
 
 };
